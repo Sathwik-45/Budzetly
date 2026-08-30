@@ -1,0 +1,140 @@
+# =========================================================
+# OS FILES
+# =========================================================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+# =========================================================
+# VS CODE / IDE
+# =========================================================
+
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+
+# =========================================================
+# FRONTEND - NODE
+# =========================================================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite
+dist/
+.vite/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Other local environment files
+*.local
+
+
+# =========================================================
+# BACKEND - JAVA / MAVEN
+# =========================================================
+
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven wrapper generated files
+.mvn/timing.properties
+
+
+# =========================================================
+# SPRING BOOT CONFIG / SECRETS
+# =========================================================
+
+application-local.properties
+application-local.yml
+application-local.yaml
+
+application-secret.properties
+application-secret.yml
+application-secret.yaml
+
+# Any environment-specific secret files
+application-*.properties
+application-*.yml
+application-*.yaml
+
+# Keep example configuration if you create one
+!application-example.properties
+!application-example.yml
+
+
+# =========================================================
+# ENVIRONMENT / SECRETS
+# =========================================================
+
+.env
+.env.*
+!.env.example
+
+
+# =========================================================
+# DATABASE FILES
+# =========================================================
+
+*.db
+*.sqlite
+*.sqlite3
+
+
+# =========================================================
+# LOGS
+# =========================================================
+
+*.log
+logs/
+
+
+# =========================================================
+# UPLOADED USER FILES
+# =========================================================
+
+budzetly-backend/uploads/
+uploads/
+
+# Don't commit generated uploaded images
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+
+
+# =========================================================
+# TEMPORARY FILES
+# =========================================================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+
+.DS_Store
+
+
+# =========================================================
+# BUILD / CACHE
+# =========================================================
+
+.cache/
+coverage/
