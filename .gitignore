@@ -113,9 +113,7 @@ budzetly-backend/uploads/
 uploads/
 
 # Don't commit generated uploaded images
-*.jpg
-*.jpeg
-*.png
+
 *.gif
 *.webp
 
