@@ -3,6 +3,7 @@ import { useState } from "react";
 import logo from "../assets/nobglogo.png";
 import Navbar from "../components/Navbar";
 import api from "../api/Axios";
+import Toast from "../components/Toast";
 
 function Register() {
 
@@ -12,56 +13,189 @@ function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [phone, setPhone] = useState("");
 
+    const [loading, setLoading] = useState(false);
+
+    const [toast, setToast] = useState(null);
+
+
+    // ==========================================
+    // SHOW TOAST
+    // ==========================================
+
+    const showToast = (message, type) => {
+
+        setToast({
+            message,
+            type
+        });
+
+    };
+
+
+    // ==========================================
+    // REGISTER
+    // ==========================================
+
     const handleRegister = async (e) => {
 
         e.preventDefault();
 
-        if (password !== confirmPassword) {
-            alert("Passwords do not match");
+        if (loading) {
             return;
         }
 
+
+        // ==========================================
+        // PASSWORD VALIDATION
+        // ==========================================
+
+        if (password !== confirmPassword) {
+
+            showToast(
+                "Passwords do not match",
+                "error"
+            );
+
+            return;
+        }
+
+
+        setLoading(true);
+
+
+        // ==========================================
+        // REGISTERING TOAST
+        // ==========================================
+
+        showToast(
+            "Creating your account...",
+            "loading"
+        );
+
+
         try {
 
-            const response = await api.post("/api/auth/register", {
-                name,
-                email,
-                password,
-                phone
-            });
+            const response =
+                await api.post(
+                    "/api/auth/register",
+                    {
+                        name,
+                        email,
+                        password,
+                        phone
+                    }
+                );
 
-            console.log(response.data);
 
-            alert("Registration successful!");
+            console.log(
+                "✅ Registration response:",
+                response.data
+            );
+
+
+            // ==========================================
+            // SUCCESS
+            // ==========================================
+
+            showToast(
+                "Registration successful!",
+                "success"
+            );
+
+
+            // Clear form
+
+            setName("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setPhone("");
+
+
+            setLoading(false);
+
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "❌ Registration error:",
+                error
+            );
 
-            alert("Registration failed");
+
+            // ==========================================
+            // ERROR
+            // ==========================================
+
+            showToast(
+                "Registration failed",
+                "error"
+            );
+
+
+            setLoading(false);
 
         }
+
     };
 
+
     return (
+
         <>
+
             <Navbar />
+
+
+            {/* ==========================================
+                TOAST
+            ========================================== */}
+
+            {toast && (
+
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                />
+
+            )}
+
 
             <div className="login-page">
 
+
+                {/* ==========================================
+                    LOGO
+                ========================================== */}
+
                 <div className="logo">
+
                     <img
                         src={logo}
-                        alt="Register Background"
+                        alt="Budzetly Logo"
                         className="login-background"
                     />
+
                 </div>
 
-                <h1>Register Here</h1>
+
+                <h1>
+                    Register Here
+                </h1>
+
+
+                {/* ==========================================
+                    REGISTER FORM
+                ========================================== */}
 
                 <div className="login-form">
 
-                    <form onSubmit={handleRegister}>
+                    <form
+                        onSubmit={handleRegister}
+                    >
+
+
+                        {/* NAME */}
 
                         <label htmlFor="name">
                             Name:
@@ -72,9 +206,17 @@ function Register() {
                             id="name"
                             name="name"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) =>
+                                setName(
+                                    e.target.value
+                                )
+                            }
+                            disabled={loading}
                             required
                         />
+
+
+                        {/* EMAIL */}
 
                         <label htmlFor="email">
                             Email:
@@ -85,9 +227,17 @@ function Register() {
                             id="email"
                             name="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) =>
+                                setEmail(
+                                    e.target.value
+                                )
+                            }
+                            disabled={loading}
                             required
                         />
+
+
+                        {/* PHONE */}
 
                         <label htmlFor="phone">
                             Phone:
@@ -98,9 +248,17 @@ function Register() {
                             id="phone"
                             name="phone"
                             value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={(e) =>
+                                setPhone(
+                                    e.target.value
+                                )
+                            }
+                            disabled={loading}
                             required
                         />
+
+
+                        {/* PASSWORD */}
 
                         <label htmlFor="password">
                             Password:
@@ -111,9 +269,17 @@ function Register() {
                             id="password"
                             name="password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) =>
+                                setPassword(
+                                    e.target.value
+                                )
+                            }
+                            disabled={loading}
                             required
                         />
+
+
+                        {/* CONFIRM PASSWORD */}
 
                         <label htmlFor="confirm-password">
                             Confirm Password:
@@ -125,26 +291,53 @@ function Register() {
                             name="confirm-password"
                             value={confirmPassword}
                             onChange={(e) =>
-                                setConfirmPassword(e.target.value)
+                                setConfirmPassword(
+                                    e.target.value
+                                )
                             }
+                            disabled={loading}
                             required
                         />
 
-                        <button type="submit">
-                            Register
+
+                        {/* REGISTER BUTTON */}
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                        >
+
+                            {loading
+                                ? "Creating account..."
+                                : "Register"
+                            }
+
                         </button>
 
+
+                        {/* LOGIN */}
+
                         <p>
+
                             ALREADY REGISTERED?
-                            <Link to="/login"> Login here</Link>
+
+                            <Link to="/login">
+                                {" "}Login here
+                            </Link>
+
                         </p>
+
 
                     </form>
 
                 </div>
+
             </div>
+
         </>
+
     );
+
 }
 
 export default Register;

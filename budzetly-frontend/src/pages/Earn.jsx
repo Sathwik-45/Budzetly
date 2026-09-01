@@ -2,11 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import EarnNavbar from "../components/EarnNavbar";
+import Toast from "../components/Toast";
 const API_URL = import.meta.env.VITE_API_URL;
 function Earn() {
 
     const token = localStorage.getItem("token");
+    const showToast = (message, type) => {
 
+    setToast({
+        message,
+        type
+    });
+
+};
     const [loading, setLoading] = useState(true);
     const [registered, setRegistered] = useState(false);
     const [earnProfile, setEarnProfile] = useState(null);
@@ -173,9 +181,10 @@ function Earn() {
 
         if (!file.type.startsWith("image/")) {
 
-            alert(
-                "Please select an image file."
-            );
+            showToast(
+    "Please select an image file.",
+    "error"
+);
 
             return;
         }
@@ -185,9 +194,10 @@ function Earn() {
 
         if (file.size > 5 * 1024 * 1024) {
 
-            alert(
-                "Image size must be less than 5 MB."
-            );
+           showToast(
+    "Image size must be less than 5 MB.",
+    "error"
+);
 
             return;
         }
@@ -231,8 +241,9 @@ function Earn() {
 
         if (!navigator.geolocation) {
 
-            alert(
-                "Location is not supported by your browser."
+            showToast(
+                "Location is not supported by your browser.",
+                "error"
             );
 
             return;
@@ -359,8 +370,9 @@ function Earn() {
 
                 setDetectingLocation(false);
 
-                alert(
-                    "Unable to access your current location."
+                showToast(
+                    "Unable to access your current location.",
+                    "error"
                 );
             },
 
@@ -422,8 +434,9 @@ function Earn() {
 
         if (!productForm.name.trim()) {
 
-            alert(
-                "Please enter a product name."
+            showToast(
+                "Please enter a product name.",
+                "error"
             );
 
             return;
@@ -432,8 +445,9 @@ function Earn() {
 
         if (!productForm.price) {
 
-            alert(
-                "Please enter a price."
+            showToast(
+                "Please enter a price.",
+                "error"
             );
 
             return;
@@ -442,9 +456,12 @@ function Earn() {
 
         if (!productForm.image) {
 
-            alert(
-                "Please add a food image."
+            showToast(
+                "Please add a food image.",
+                "error"
             );
+
+             
 
             return;
         }
@@ -452,8 +469,9 @@ function Earn() {
 
         if (!productForm.location.trim()) {
 
-            alert(
-                "Please add the product location."
+            showToast(
+                "Please add the product location.",
+                "error"
             );
 
             return;
@@ -565,8 +583,9 @@ function Earn() {
             closeAddProduct();
 
 
-            alert(
-                "Product added successfully!"
+            showToast(
+                "Product added successfully!",
+                "success"
             );
 
 
@@ -590,13 +609,18 @@ function Earn() {
             );
 
 
-            alert(
-                "Failed to add product."
+            showToast(
+                "Failed to add product.",
+                "error"
             );
 
         } finally {
 
             setSavingProduct(false);
+            showToast(
+    "Adding product...",
+    "loading"
+);
         }
     };
 
@@ -816,7 +840,12 @@ function Earn() {
 
     return (
           <div>
-
+ {toast && (
+            <Toast
+                message={toast.message}
+                type={toast.type}
+            />
+        )}
         <EarnNavbar />
 
         <div className="earn-dashboard">

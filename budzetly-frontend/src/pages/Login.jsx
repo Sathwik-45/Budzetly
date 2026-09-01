@@ -3,6 +3,7 @@ import { useState } from "react";
 import logo from "../assets/nobglogo.png";
 import Navbar from "../components/Navbar";
 import api from "../api/Axios";
+import Toast from "../components/Toast";
 
 function Login() {
 
@@ -11,57 +12,193 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [loading, setLoading] = useState(false);
+
+    const [toast, setToast] = useState(null);
+
+
+    const showToast = (message, type) => {
+
+        setToast({
+            message,
+            type
+        });
+
+    };
+
+
+    const hideToast = () => {
+
+        setToast(null);
+
+    };
+
+
     const handleLogin = async (e) => {
 
         e.preventDefault();
 
+        if (loading) {
+            return;
+        }
+
+        setLoading(true);
+
+        // ==========================================
+        // LOGIN START
+        // ==========================================
+
+        showToast(
+            "Logging in...",
+            "loading"
+        );
+
+
         try {
 
-            const response = await api.post("/api/auth/login", {
-                email,
-                password
-            });
+            const response =
+                await api.post(
+                    "/api/auth/login",
+                    {
+                        email,
+                        password
+                    }
+                );
 
-            console.log(response.data);
 
-            // Get token and user
-            const { token, user } = response.data;
+            console.log(
+                "✅ Login response:",
+                response.data
+            );
 
-            // Store them
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
 
-            // Go to home only after successful login
-            navigate("/home");
+            // ==========================================
+            // GET TOKEN AND USER
+            // ==========================================
+
+            const {
+                token,
+                user
+            } = response.data;
+
+
+            // ==========================================
+            // STORE TOKEN AND USER
+            // ==========================================
+
+            localStorage.setItem(
+                "token",
+                token
+            );
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(user)
+            );
+
+
+            // ==========================================
+            // SUCCESS TOAST
+            // ==========================================
+
+            showToast(
+                "Login successful",
+                "success"
+            );
+
+
+            // ==========================================
+            // SMALL DELAY SO USER CAN SEE TOAST
+            // ==========================================
+
+            setTimeout(() => {
+
+                navigate("/home");
+
+            }, 800);
+
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "❌ Login error:",
+                error
+            );
 
-            alert("Invalid email or password");
+
+            // ==========================================
+            // ERROR TOAST
+            // ==========================================
+
+            showToast(
+                "Invalid email or password",
+                "error"
+            );
+
+
+            setLoading(false);
 
         }
+
     };
 
+
     return (
+
         <>
+
             <Navbar />
+
+
+            {/* ==========================================
+                TOAST
+            ========================================== */}
+
+            {toast && (
+
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                />
+
+            )}
+
 
             <div className="login-page">
 
+
+                {/* ==========================================
+                    LOGO
+                ========================================== */}
+
                 <div className="logo">
+
                     <img
                         src={logo}
-                        alt="Login Background"
+                        alt="Budzetly Logo"
                         className="login-background"
                     />
+
                 </div>
 
-                <h1>Login Page</h1>
+
+                <h1>
+                    Login Page
+                </h1>
+
+
+                {/* ==========================================
+                    LOGIN FORM
+                ========================================== */}
 
                 <div className="login-form">
 
-                    <form onSubmit={handleLogin}>
+                    <form
+                        onSubmit={handleLogin}
+                    >
+
+
+                        {/* EMAIL */}
 
                         <label htmlFor="email">
                             Email:
@@ -72,9 +209,17 @@ function Login() {
                             id="email"
                             name="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) =>
+                                setEmail(
+                                    e.target.value
+                                )
+                            }
+                            disabled={loading}
                             required
                         />
+
+
+                        {/* PASSWORD */}
 
                         <label htmlFor="password">
                             Password:
@@ -85,25 +230,54 @@ function Login() {
                             id="password"
                             name="password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) =>
+                                setPassword(
+                                    e.target.value
+                                )
+                            }
+                            disabled={loading}
                             required
                         />
 
-                        <button type="submit">
-                            Login
+
+                        {/* LOGIN BUTTON */}
+
+                        <button
+                            type="submit"
+                            disabled={loading}
+                        >
+
+                            {loading
+                                ? "Logging in..."
+                                : "Login"
+                            }
+
                         </button>
 
+
+                        {/* SIGN UP */}
+
                         <p>
+
                             NOT YET REGISTERED?
-                            <Link to="/register"> Sign Up here</Link>
+
+                            <Link to="/register">
+                                {" "}Sign Up here
+                            </Link>
+
                         </p>
+
 
                     </form>
 
                 </div>
+
             </div>
+
         </>
+
     );
+
 }
 
 export default Login;

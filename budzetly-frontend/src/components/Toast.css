@@ -1,0 +1,165 @@
+/* =========================================================
+   BUDZETLY TOAST
+========================================================= */
+
+.budzetly-toast {
+    position: fixed;
+
+    top: 24px;
+    right: 24px;
+
+    z-index: 99999;
+
+    min-width: 280px;
+    max-width: 380px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 17px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e9e2;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.12);
+
+    animation: toastSlideIn 0.3s ease;
+}
+
+
+/* ICON */
+
+.toast-icon {
+    width: 27px;
+    height: 27px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+/* SUCCESS */
+
+.budzetly-toast.success {
+    border-left: 4px solid #5f8f45;
+}
+
+.budzetly-toast.success .toast-icon {
+    background: #edf6e8;
+    color: #4f8137;
+}
+
+
+/* ERROR */
+
+.budzetly-toast.error {
+    border-left: 4px solid #d85c5c;
+}
+
+.budzetly-toast.error .toast-icon {
+    background: #fff0f0;
+    color: #c84d4d;
+}
+
+
+/* LOADING */
+
+.budzetly-toast.loading {
+    border-left: 4px solid #536d8b;
+}
+
+.budzetly-toast.loading .toast-icon {
+    background: #eef3f8;
+    color: #536d8b;
+}
+
+
+/* MESSAGE */
+
+.toast-message {
+    color: #30383f;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+/* SPINNER */
+
+.toast-spinner {
+    width: 13px;
+    height: 13px;
+
+    border: 2px solid #d7e0e8;
+
+    border-top-color: #536d8b;
+
+    border-radius: 50%;
+
+    animation: toastSpin 0.7s linear infinite;
+}
+
+
+/* ANIMATION */
+
+@keyframes toastSlideIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes toastSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .budzetly-toast {
+
+        top: 14px;
+        left: 12px;
+        right: 12px;
+
+        min-width: 0;
+        max-width: none;
+
+        width: auto;
+
+        padding: 12px 14px;
+    }
+
+    .toast-message {
+        font-size: 12px;
+    }
+}
