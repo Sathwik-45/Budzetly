@@ -8105,3 +8105,161 @@ form p
         font-size: 14px;
     }
 }
+/* =========================================================
+   NAVBAR - MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        width: 100%;
+        min-height: 64px;
+
+        padding: 10px 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        box-sizing: border-box;
+
+        gap: 10px;
+    }
+
+
+    /* ================= LOGO ================= */
+
+    .brand {
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+
+        gap: 7px;
+
+        text-decoration: none;
+    }
+
+    .logo-icon {
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-icon img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+
+        display: block;
+    }
+
+    .brand > span {
+        display: flex;
+        align-items: baseline;
+
+        font-size: 17px;
+        font-weight: 800;
+
+        white-space: nowrap;
+    }
+
+    .brand > span h3 {
+        margin: 0;
+
+        font-size: 17px;
+        line-height: 1;
+
+        display: inline;
+    }
+
+
+    /* ================= NAV LINKS ================= */
+
+    .nav-links {
+        display: none;
+    }
+
+
+    /* ================= BUTTONS ================= */
+
+    .nav-buttons {
+        display: flex;
+        align-items: center;
+
+        gap: 7px;
+
+        flex-shrink: 0;
+    }
+
+    .login-btn,
+    .signup-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 38px;
+
+        padding: 0 11px;
+
+        font-size: 12px;
+
+        white-space: nowrap;
+
+        box-sizing: border-box;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .navbar {
+        min-height: 60px;
+
+        padding: 9px 12px;
+
+        gap: 6px;
+    }
+
+    .logo-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .brand {
+        gap: 5px;
+    }
+
+    .brand > span {
+        font-size: 15px;
+    }
+
+    .brand > span h3 {
+        font-size: 15px;
+    }
+
+    .nav-buttons {
+        gap: 5px;
+    }
+
+    .login-btn,
+    .signup-btn {
+        min-height: 36px;
+
+        padding: 0 9px;
+
+        font-size: 11px;
+    }
+}
+
