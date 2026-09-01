@@ -29,7 +29,7 @@ function Earn() {
 
     const [detectingLocation, setDetectingLocation] =
         useState(false);
-
+    const [toast, setToast] = useState(null);
 
     // ==========================================
     // PRODUCT FORM
