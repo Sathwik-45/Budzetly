@@ -8263,3 +8263,210 @@ form p
     }
 }
 
+/* =========================================================
+   MOBILE NAVBAR
+========================================================= */
+
+@media screen and (max-width: 700px) {
+
+    .navbar {
+        position: relative;
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+    }
+
+
+    /* ---------------------------------------------
+       HIDE NORMAL NAV LINKS
+    --------------------------------------------- */
+
+    .navbar .nav-links {
+        display: none !important;
+    }
+
+
+    /* ---------------------------------------------
+       KEEP RIGHT SIDE CONTAINER
+    --------------------------------------------- */
+
+    .navbar .nav-buttons {
+        display: flex !important;
+
+        align-items: center;
+
+        margin-left: auto;
+
+        gap: 7px;
+
+        min-width: 0;
+
+        flex-shrink: 1;
+    }
+
+
+    /* ---------------------------------------------
+       KEEP LOCATION
+    --------------------------------------------- */
+
+    .navbar .nav-location {
+        display: block !important;
+
+        min-width: 0;
+
+        flex-shrink: 1;
+    }
+
+
+    .navbar .location-btn {
+        max-width: 125px;
+
+        min-height: 38px;
+
+        padding: 0 8px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 4px;
+
+        overflow: hidden;
+
+        white-space: nowrap;
+    }
+
+
+    .navbar .location-text {
+        max-width: 82px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+        font-size: 11px;
+    }
+
+
+    .navbar .location-arrow {
+        flex-shrink: 0;
+    }
+
+
+    /* ---------------------------------------------
+       HIDE EARN + LOGOUT
+       They are available inside hamburger
+    --------------------------------------------- */
+
+    .navbar .profile-btn,
+    .navbar .logout-btn {
+        display: none !important;
+    }
+
+
+    /* ---------------------------------------------
+       LOGO
+    --------------------------------------------- */
+
+    .navbar .brand {
+        display: flex !important;
+
+        align-items: center;
+
+        flex-shrink: 0;
+
+        min-width: 0;
+    }
+
+
+    .navbar .logo-icon {
+        flex-shrink: 0;
+    }
+
+
+    .navbar .logo-icon img {
+        display: block;
+    }
+
+
+    /* ---------------------------------------------
+       HAMBURGER
+    --------------------------------------------- */
+
+    .navbar .mobile-menu-button {
+        display: flex !important;
+
+        width: 40px;
+        height: 40px;
+
+        flex-shrink: 0;
+
+        margin-left: 0;
+
+        padding: 0;
+
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid #dfe5dc;
+
+        border-radius: 9px;
+
+        background: #ffffff;
+
+        color: #263f5d;
+
+        font-size: 21px;
+
+        line-height: 1;
+
+        cursor: pointer;
+
+        z-index: 10001;
+    }
+
+
+    /* ---------------------------------------------
+       MOBILE MENU
+    --------------------------------------------- */
+
+    .navbar .mobile-nav-menu {
+        position: absolute;
+
+        top: 100%;
+
+        left: 0;
+        right: 0;
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 3px;
+
+        padding: 10px;
+
+        background: #ffffff;
+
+        border-top: 1px solid #e5e9e2;
+
+        box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.12);
+
+        z-index: 10000;
+    }
+}
+
