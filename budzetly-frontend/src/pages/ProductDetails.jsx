@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import MainNavbar from "../components/MainNavbar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function ProductDetails({ location, setLocation }) {
 
     const navigate = useNavigate();
@@ -230,7 +230,7 @@ function ProductDetails({ location, setLocation }) {
 
                             <img
                                 src={
-                                    `http://localhost:8080${product.imageUrl}`
+                                    `${API_URL}${product.imageUrl}`
                                 }
                                 alt={product.name}
                             />

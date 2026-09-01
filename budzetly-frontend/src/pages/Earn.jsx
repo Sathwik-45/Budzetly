@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import EarnNavbar from "../components/EarnNavbar";
+const API_URL = import.meta.env.VITE_API_URL;
 function Earn() {
 
     const token = localStorage.getItem("token");
@@ -58,7 +59,7 @@ function Earn() {
         try {
 
             const response = await axios.get(
-                "http://localhost:8080/api/earn/me",
+                `${API_URL}/api/earn/me`,
                 {
                     headers: {
                         Authorization:
@@ -113,7 +114,7 @@ function Earn() {
         try {
 
             const response = await axios.get(
-                "http://localhost:8080/api/products/my",
+                `${API_URL}/api/products/my`,
                 {
                     headers: {
                         Authorization:
@@ -532,7 +533,7 @@ function Earn() {
             const response =
                 await axios.post(
 
-                    "http://localhost:8080/api/products",
+                    `${API_URL}/api/products`,
 
                     formData,
 
@@ -1051,7 +1052,7 @@ function Earn() {
 
                                         <img
                                             src={
-                                                `http://localhost:8080${product.imageUrl}`
+                                                `${API_URL}${product.imageUrl}`
                                             }
                                             alt={
                                                 product.name

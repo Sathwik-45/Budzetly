@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import MainNavbar from "../components/MainNavbar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Explore({ location, setLocation }) {
 
     const navigate = useNavigate();
@@ -27,7 +27,13 @@ function Explore({ location, setLocation }) {
                 setLoading(true);
 
                 const response = await axios.get(
-                    "http://localhost:8080/api/products"
+                    
+                    
+                    
+                    
+                    
+                    
+                    `${API_URL}/api/products`
                 );
 
                 console.log(
@@ -76,7 +82,7 @@ const updateOrderStatus = async (
 
 
         await axios.put(
-            `http://localhost:8080/api/orders/${orderId}/status`,
+            `${API_URL}/api/orders/${orderId}/status`,
             null,
             {
                 params: {
@@ -490,7 +496,7 @@ const updateOrderStatus = async (
                                                                 "http"
                                                             )
                                                                 ? product.imageUrl
-                                                                : `http://localhost:8080${product.imageUrl}`
+                                                                : `${API_URL}${product.imageUrl}`
                                                         }
                                                         alt={
                                                             product.name

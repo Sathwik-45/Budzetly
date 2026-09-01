@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import logo from "../assets/nobglogo.png";
 import Navbar from "../components/Navbar";
-import api from "../api/axios";
+import api from "../api/Axios";
 
 function Register() {
 

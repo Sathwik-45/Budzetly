@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FoodImage from "../assets/mainhome-bg.png";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Mainhome({ location }) {
 
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ function Mainhome({ location }) {
 
             const response =
                 await axios.get(
-                    "http://localhost:8080/api/products"
+                    `${API_URL}/api/products`
                 );
 
             const allProducts =
@@ -306,7 +306,7 @@ function Mainhome({ location }) {
 
                                             <img
                                                 src={
-                                                    `http://localhost:8080${product.imageUrl}`
+                                                    `${API_URL}${product.imageUrl}`
                                                 }
                                                 alt={
                                                     product.name

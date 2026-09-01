@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import MainNavbar from "../components/MainNavbar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Cart({ location, setLocation }) {
 
     const navigate = useNavigate();
@@ -298,7 +298,7 @@ function Cart({ location, setLocation }) {
             const response =
                 await axios.post(
 
-                    "http://localhost:8080/api/orders",
+                    `${API_URL}/api/orders`,
 
                     requestData,
 
@@ -542,7 +542,7 @@ function Cart({ location, setLocation }) {
 
                                     <img
                                         src={
-                                            `http://localhost:8080${item.imageUrl}`
+                                            `${API_URL}${item.imageUrl}`
                                         }
                                         alt={item.name}
                                         onError={(e) => {

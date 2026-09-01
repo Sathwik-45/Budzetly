@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import MainNavbar from "../components/MainNavbar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function MyOrders({ location, setLocation }) {
 
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ function MyOrders({ location, setLocation }) {
             console.log("🔥 Loading my orders");
 
             const response = await axios.get(
-                "http://localhost:8080/api/orders/my",
+                `${API_URL}/api/orders/my`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -372,7 +372,7 @@ function MyOrders({ location, setLocation }) {
                                                                                     item.product?.imageUrl ||
                                                                                     item.imageUrl
                                                                                 )
-                                                                                : `http://localhost:8080${
+                                                                                : `${API_URL}${
                                                                                     item.product?.imageUrl ||
                                                                                     item.imageUrl
                                                                                 }`

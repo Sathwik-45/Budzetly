@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import EarnNavbar from "../components/EarnNavbar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function EarnOrders() {
 
     const [orders, setOrders] = useState([]);
@@ -25,7 +25,7 @@ function EarnOrders() {
         );
 
         await axios.put(
-            `http://localhost:8080/api/orders/${orderId}/status`,
+            `${API_URL}/api/orders/${orderId}/status`,
             null,
             {
                 params: {
@@ -87,7 +87,7 @@ function EarnOrders() {
 
             const response =
                 await axios.get(
-                    "http://localhost:8080/api/orders/earner",
+                    `${API_URL}/api/orders/earner`,
                     {
                         headers: {
                             Authorization:
@@ -326,7 +326,7 @@ function EarnOrders() {
 
                                                             <img
                                                                 src={
-                                                                    `http://localhost:8080${item.imageUrl}`
+                                                                    `${API_URL}${item.imageUrl}`
                                                                 }
                                                                 alt={
                                                                     item.productName

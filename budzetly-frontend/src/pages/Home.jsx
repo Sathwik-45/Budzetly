@@ -1,6 +1,7 @@
 import foodImage from "../assets/budzetly-food.png";
 import {Link} from "react-router-dom";
 import Navbar from "../components/Navbar";
+
 function Home() {
     return (
         <><Navbar/>
