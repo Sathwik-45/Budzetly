@@ -617,10 +617,7 @@ function Earn() {
         } finally {
 
             setSavingProduct(false);
-            showToast(
-    "Adding product...",
-    "loading"
-);
+   
         }
     };
 
