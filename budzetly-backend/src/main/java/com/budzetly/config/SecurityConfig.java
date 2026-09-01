@@ -53,7 +53,10 @@ public class SecurityConfig {
                 CorsConfiguration configuration = new CorsConfiguration();
 
                 configuration.setAllowedOrigins(
-                                List.of("http://localhost:5173"));
+                                List.of(
+                                                "http://localhost:5173",
+                                                "https://budzetly.vercel.app",
+                                                "https://budzetly-mvzfk5cgy-projects-projects-344c83e7.vercel.app"));
 
                 configuration.setAllowedMethods(
                                 List.of(
@@ -61,6 +64,7 @@ public class SecurityConfig {
                                                 "POST",
                                                 "PUT",
                                                 "DELETE",
+                                                "PATCH",
                                                 "OPTIONS"));
 
                 configuration.setAllowedHeaders(
@@ -76,7 +80,6 @@ public class SecurityConfig {
 
                 return source;
         }
-
         // ==========================================
         // SECURITY FILTER CHAIN
         // ==========================================
