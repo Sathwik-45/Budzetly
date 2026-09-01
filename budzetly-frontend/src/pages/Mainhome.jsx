@@ -304,14 +304,10 @@ function Mainhome({ location }) {
 
                                         <div className="home-product-image">
 
-                                            <img
-                                                src={
-                                                    `${API_URL}${product.imageUrl}`
-                                                }
-                                                alt={
-                                                    product.name
-                                                }
-                                            />
+                                           <img
+    src={product.imageUrl}
+    alt={product.name}
+/>
 
 
                                             <span>

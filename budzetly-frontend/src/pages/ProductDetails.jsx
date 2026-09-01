@@ -230,7 +230,7 @@ function ProductDetails({ location, setLocation }) {
 
                             <img
                                 src={
-                                    `${API_URL}${product.imageUrl}`
+                                    product.imageUrl
                                 }
                                 alt={product.name}
                             />

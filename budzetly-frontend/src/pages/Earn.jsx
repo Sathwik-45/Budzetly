@@ -1050,15 +1050,10 @@ function Earn() {
 
                                     {product.imageUrl ? (
 
-                                        <img
-                                            src={
-                                                `${API_URL}${product.imageUrl}`
-                                            }
-                                            alt={
-                                                product.name
-                                            }
-                                        />
-
+                                       <img
+    src={product.imageUrl}
+    alt={product.name}
+/>
                                     ) : (
 
                                         <div className="no-product-image">
