@@ -1,76 +1,102 @@
 package com.budzetly.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 public class ImageStorageService {
 
-    private final Path uploadDirectory = Paths.get("uploads");
+        private final Cloudinary cloudinary;
 
-    public ImageStorageService() {
+        public ImageStorageService(
+                        @Value("${cloudinary.cloud-name}") String cloudName,
+                        @Value("${cloudinary.api-key}") String apiKey,
+                        @Value("${cloudinary.api-secret}") String apiSecret) {
 
-        try {
-
-            Files.createDirectories(
-                    uploadDirectory);
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "Could not create upload directory",
-                    e);
-        }
-    }
-
-    public String saveImage(
-            MultipartFile file) {
-
-        if (file == null ||
-                file.isEmpty()) {
-
-            throw new RuntimeException(
-                    "Image is required");
+                this.cloudinary = new Cloudinary(
+                                ObjectUtils.asMap(
+                                                "cloud_name", cloudName,
+                                                "api_key", apiKey,
+                                                "api_secret", apiSecret,
+                                                "secure", true));
         }
 
-        String originalName = file.getOriginalFilename();
+        public String saveImage(
+                        MultipartFile file) {
 
-        String extension = "";
+                // ==========================================
+                // VALIDATE IMAGE
+                // ==========================================
 
-        if (originalName != null &&
-                originalName.contains(".")) {
+                if (file == null ||
+                                file.isEmpty()) {
 
-            extension = originalName.substring(
-                    originalName.lastIndexOf("."));
+                        throw new RuntimeException(
+                                        "Image is required");
+                }
+
+                // ==========================================
+                // VALIDATE IMAGE TYPE
+                // ==========================================
+
+                String contentType = file.getContentType();
+
+                if (contentType == null ||
+                                !contentType.startsWith("image/")) {
+
+                        throw new RuntimeException(
+                                        "Only image files are allowed");
+                }
+
+                // ==========================================
+                // UPLOAD TO CLOUDINARY
+                // ==========================================
+
+                try {
+
+                        Map<?, ?> uploadResult = cloudinary.uploader().upload(
+                                        file.getBytes(),
+                                        ObjectUtils.asMap(
+                                                        "folder",
+                                                        "budzetly/products",
+
+                                                        "resource_type",
+                                                        "image"));
+
+                        // ======================================
+                        // GET SECURE CLOUDINARY URL
+                        // ======================================
+
+                        String secureUrl = (String) uploadResult.get(
+                                        "secure_url");
+
+                        if (secureUrl == null ||
+                                        secureUrl.isEmpty()) {
+
+                                throw new RuntimeException(
+                                                "Cloudinary did not return image URL");
+                        }
+
+                        System.out.println(
+                                        "☁️ CLOUDINARY IMAGE URL: "
+                                                        + secureUrl);
+
+                        return secureUrl;
+
+                } catch (IOException e) {
+
+                        e.printStackTrace();
+
+                        throw new RuntimeException(
+                                        "Failed to upload image to Cloudinary",
+                                        e);
+                }
         }
-
-        String fileName = UUID.randomUUID()
-                + extension;
-
-        Path filePath = uploadDirectory.resolve(
-                fileName);
-
-        try {
-
-            Files.copy(
-                    file.getInputStream(),
-                    filePath,
-                    StandardCopyOption.REPLACE_EXISTING);
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "Failed to save image",
-                    e);
-        }
-
-        return "/uploads/" + fileName;
-    }
 }
